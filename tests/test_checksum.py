@@ -13,8 +13,7 @@ def test_empty_string():
 
 
 def test_calculation_verifies():
-    """Test that the calculated checkdigit passes verification"""
-
+    """Test that the calculated checkdigit passes verification."""
     d32 = Damm32()
     for i in range(1000):
         word = random_string(6)
@@ -24,6 +23,7 @@ def test_calculation_verifies():
 
 
 def test_known_good():
+    """Test to see if known good strings pass verification."""
     data = [
         'HELLOW'
         'TFSI4JR',
@@ -48,7 +48,7 @@ def test_known_good():
         'UETCW4P',
         'WRJ26DM',
         'VPYO6PP',
-        'UFUBNW2'
+        'UFUBNW2',
     ]
     d32 = Damm32()
     for word in data:
