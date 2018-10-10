@@ -17,6 +17,7 @@ pip = "*"
 "flake8-todo" = "*"
 mypy = "*"
 pytest = "*"
+twine = "*"
 
 [scripts]
 lint = "flake8 damm32 tests"
