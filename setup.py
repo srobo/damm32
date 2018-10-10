@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="damm32",
-    version="0.0.1",
+    version="0.0.2",
     author="Dan Trickey",
     author_email="contact@trickey.io",
     description="A pure-python implementation of the Damm Algorithm, base 32",
