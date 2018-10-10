@@ -40,6 +40,8 @@ class Damm32:
         return checkdigit
 
     def _to_digits(self, word: str) -> DigitList:
+        if type(word) is not str:
+            raise TypeError
         word = word.upper()
         try:
             dl = []
