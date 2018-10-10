@@ -4,6 +4,15 @@ from typing import List
 
 Digit = int
 DigitList = List[Digit]
+Alphabet = List[str]
+
+
+class BadCharacterException(ValueError):
+    pass
+
+
+class BadAlphabetException(Exception):
+    pass
 
 
 class Damm32:
@@ -11,6 +20,10 @@ class Damm32:
 
     BASE_SIZE = 32
     ALPHABET = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', '2', '3', '4', '5', '6', '7']  # noqa: E501
+
+    def __init__(self, alphabet: Alphabet = ALPHABET):
+        if len(set(alphabet)) != 32:
+            raise BadAlphabetException
 
     def _calculate_from_digits(self, digits: DigitList) -> Digit:
         mask = 37
@@ -23,11 +36,15 @@ class Damm32:
         return checkdigit
 
     def _to_digits(self, word: str) -> DigitList:
-        word.upper()
-        dl = []
-        for i in word:
-            dl.append(Damm32.ALPHABET.index(i))
-        return dl
+        word = word.upper()
+        try:
+            dl = []
+            for i in word:
+                dl.append(Damm32.ALPHABET.index(i))
+            return dl
+        except ValueError:
+            pass
+        raise BadCharacterException
 
     def _to_word(self, digits: DigitList) -> str:
         word = ""
