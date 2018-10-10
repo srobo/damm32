@@ -25,7 +25,7 @@ class Damm32:
     BASE_SIZE = 32
     ALPHABET = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', '2', '3', '4', '5', '6', '7']  # noqa: E501
 
-    def __init__(self, alphabet: Alphabet = ALPHABET):
+    def __init__(self, alphabet: Alphabet = ALPHABET) -> None:
         if len(set(alphabet)) != 32 or len(alphabet) != 32:
             raise BadAlphabetException
 
