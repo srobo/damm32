@@ -8,10 +8,14 @@ Alphabet = List[str]
 
 
 class BadCharacterException(ValueError):
+    """An invalid character was found in your input."""
+
     pass
 
 
 class BadAlphabetException(Exception):
+    """That alphabet is of the wrong length or has duplicate characters."""
+
     pass
 
 
@@ -22,7 +26,7 @@ class Damm32:
     ALPHABET = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', '2', '3', '4', '5', '6', '7']  # noqa: E501
 
     def __init__(self, alphabet: Alphabet = ALPHABET):
-        if len(set(alphabet)) != 32:
+        if len(set(alphabet)) != 32 or len(alphabet) != 32:
             raise BadAlphabetException
 
     def _calculate_from_digits(self, digits: DigitList) -> Digit:
