@@ -5,4 +5,6 @@ A python implementation of the Damm algorithm, in base 32.
 
 """
 
-from .checksum import Damm32  # noqa: F401
+from .checksum import Damm32
+
+__all__ = ["BadAlphabetException", "BadCharacterException", "Damm32"]
