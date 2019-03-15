@@ -1,12 +1,43 @@
 version: 2
+workflows:
+  version: 2
+  test:
+    jobs:
+      - test-3.4
+      - test-3.5
+      - test-3.6
+      - test-3.7
+
 jobs:
-  build:
+  test-3.4: &template
     docker:
-      - image: python:3.6
+      - image: pyinv/damm32-ci:3.4
     steps:
       - checkout
-      - run: pip install poetry
+      - restore_cache:
+          keys:
+            - pip-packages-{{ .Branch }}-{{ checksum "poetry.lock" }}
+            - pip-packages-{{ .Branch }}-
+            - pip-packages-
       - run: poetry install
-      - run: make lint
-      - run: make type
-      - run: make test
+      - run: poetry run flake8 damm32 tests
+      - run: poetry run mypy damm32
+      - run: cc-test-reporter before-build
+      - run: poetry run pytest --cov=damm32 tests --cov-report xml
+      - run: cc-test-reporter after-build -t coverage.py --exit-code $? coverage.xml
+      - save_cache:
+          paths:
+            - /root/.cache/pypoetry/virtualenvs
+          key: pip-packages-{{ .Branch }}-{{ checksum "poetry.lock" }}
+  test-3.5:
+    <<: *template
+    docker:
+      - image: pyinv/damm32-ci:3.5
+  test-3.6:
+    <<: *template
+    docker:
+      - image: pyinv/damm32-ci:3.6
+  test-3.7:
+    <<: *template
+    docker:
+      - image: pyinv/damm32-ci:3.7
