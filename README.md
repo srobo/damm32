@@ -1,6 +1,6 @@
 # Damm32
 
-[![CircleCI](https://circleci.com/gh/trickeydan/damm32.svg?style=svg)](https://circleci.com/gh/trickeydan/damm32)
+[![CircleCI](https://circleci.com/gh/pyinv/damm32.svg?style=svg)](https://circleci.com/gh/pyinv/damm32)
 
 Python implementation of the Damm Algorithm in Base 32
 
