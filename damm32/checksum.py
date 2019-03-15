@@ -30,6 +30,7 @@ class Damm32:
             raise BadAlphabetException
 
     def _calculate_from_digits(self, digits: DigitList) -> Digit:
+        """Calculate the check digit from a DigitList."""
         mask = 37
         checkdigit = 0
         for digit in digits:
@@ -40,6 +41,7 @@ class Damm32:
         return checkdigit
 
     def _to_digits(self, word: str) -> DigitList:
+        """Convert a string to a DigitList."""
         if type(word) is not str:
             raise TypeError
         word = word.upper()
@@ -53,6 +55,7 @@ class Damm32:
         raise BadCharacterException
 
     def _to_word(self, digits: DigitList) -> str:
+        """Convert a DigitList to a str."""
         word = ""
         for i in digits:
             word += Damm32.ALPHABET[i]
