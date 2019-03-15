@@ -5,8 +5,8 @@ jobs:
       - image: python:3.6
     steps:
       - checkout
-      - run: pip install pipenv
-      - run: pipenv install --dev
-      - run: pipenv run lint
-      - run: pipenv run type
-      - run: pipenv run test
+      - run: pip install poetry
+      - run: poetry install
+      - run: make lint
+      - run: make type
+      - run: make test
