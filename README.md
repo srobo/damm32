@@ -1,6 +1,8 @@
 # Damm32
 
 [![CircleCI](https://circleci.com/gh/pyinv/damm32.svg?style=svg)](https://circleci.com/gh/pyinv/damm32)
+[![Maintainability](https://api.codeclimate.com/v1/badges/476968b8744ce5ed9ed3/maintainability)](https://codeclimate.com/github/pyinv/damm32/maintainability)
+[![Test Coverage](https://api.codeclimate.com/v1/badges/476968b8744ce5ed9ed3/test_coverage)](https://codeclimate.com/github/pyinv/damm32/test_coverage)
 
 Python implementation of the Damm Algorithm in Base 32
 
