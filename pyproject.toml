@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "damm32"
-version = "0.0.3"
+version = "0.0.4"
 description = "A pure-python implementation of the Damm Algorithm in Base 32."
 authors = ["Dan Trickey <dan@trickey.io>"]
 license = "MIT"
