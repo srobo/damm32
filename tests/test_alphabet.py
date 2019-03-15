@@ -1,7 +1,6 @@
 """Test that the class is able to verify an alphabet is valid."""
 
 import pytest
-
 from damm32 import Damm32
 from damm32.checksum import BadAlphabetException, BadCharacterException
 

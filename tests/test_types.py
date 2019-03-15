@@ -1,7 +1,6 @@
 """Test that the class behaves as expected at a high level."""
 
 import pytest
-
 from damm32 import Damm32
 
 

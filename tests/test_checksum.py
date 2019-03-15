@@ -1,8 +1,7 @@
 """Test that the class behaves as expected at a high level."""
 
-from tests.utils import random_string
-
 from damm32 import Damm32
+from tests.utils import random_string
 
 
 def test_empty_string():
