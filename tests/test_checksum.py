@@ -4,14 +4,14 @@ from damm32 import Damm32
 from tests.utils import random_string
 
 
-def test_empty_string():
+def test_empty_string() -> None:
     """Test empty strings."""
     d32 = Damm32()
     assert d32.verify("")
     assert d32.calculate("") == 'A'
 
 
-def test_calculation_verifies():
+def test_calculation_verifies() -> None:
     """Test that the calculated checkdigit passes verification."""
     d32 = Damm32()
     for i in range(1000):
@@ -21,7 +21,7 @@ def test_calculation_verifies():
         assert d32.verify(word)
 
 
-def test_known_good():
+def test_known_good() -> None:
     """Test to see if known good strings pass verification."""
     data = [
         'HELLOW'

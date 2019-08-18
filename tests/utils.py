@@ -1,6 +1,7 @@
 """Utility functions for the tests."""
 
 import random
+from typing import List
 
 ALPHABET = [
     "A",
@@ -38,6 +39,6 @@ ALPHABET = [
 ]
 
 
-def random_string(length, alphabet=ALPHABET):
+def random_string(length: int, alphabet: List[str] = ALPHABET) -> str:
     """Get a string of random length."""
     return "".join([random.choice(alphabet) for _ in range(length)])
