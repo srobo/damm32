@@ -10,9 +10,9 @@ By default, it uses an alphabet as specified in [RFC 4648](https://tools.ietf.or
 
 ## Installation
 
-The package is available on [PyPI](https://pypi.org/project/damm32/) and can be installed using pip.
+The package is available on [PyPI](https://pypi.org/project/damm32/) and can be installed using pip: `pip install damm32`
 
-`pip install damm32`
+It is also available on the [Arch User Repository](https://aur.archlinux.org/packages/python-damm32/) as `python-damm32`.
 
 Alternatively, you can clone the repository and use the module.
 
