@@ -10,13 +10,9 @@ Alphabet = List[str]
 class BadCharacterException(ValueError):
     """An invalid character was found in your input."""
 
-    pass
-
 
 class BadAlphabetException(Exception):
-    """That alphabet is of the wrong length or has duplicate characters."""
-
-    pass
+    """The alphabet is of the wrong length or has duplicate characters."""
 
 
 class Damm32:
@@ -26,7 +22,7 @@ class Damm32:
     ALPHABET = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', '2', '3', '4', '5', '6', '7']  # noqa: E501
 
     def __init__(self, alphabet: Alphabet = ALPHABET) -> None:
-        if len(set(alphabet)) != 32 or len(alphabet) != 32:
+        if len(set(alphabet)) != Damm32.BASE_SIZE or len(alphabet) != Damm32.BASE_SIZE:
             raise BadAlphabetException
 
     def _calculate_from_digits(self, digits: DigitList) -> Digit:
@@ -46,20 +42,13 @@ class Damm32:
             raise TypeError
         word = word.upper()
         try:
-            dl = []
-            for i in word:
-                dl.append(Damm32.ALPHABET.index(i))
-            return dl
+            return [Damm32.ALPHABET.index(letter) for letter in word]
         except ValueError:
-            pass
-        raise BadCharacterException
+            raise BadCharacterException from None
 
     def _to_word(self, digits: DigitList) -> str:
         """Convert a DigitList to a str."""
-        word = ""
-        for i in digits:
-            word += Damm32.ALPHABET[i]
-        return word
+        return "".join([Damm32.ALPHABET[digit] for digit in digits])
 
     def calculate(self, word: str) -> str:
         """Calculate the check digit for a string."""
