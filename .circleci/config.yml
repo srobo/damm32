@@ -3,15 +3,14 @@ workflows:
   version: 2
   test:
     jobs:
-      - test-3.4
-      - test-3.5
       - test-3.6
       - test-3.7
+      - test-3.8
 
 jobs:
-  test-3.4: &template
+  test-3.6: &template
     docker:
-      - image: pyinv/damm32-ci:3.4
+      - image: j5api/ci:3.6
     steps:
       - checkout
       - restore_cache:
@@ -29,15 +28,11 @@ jobs:
           paths:
             - /root/.cache/pypoetry/virtualenvs
           key: pip-packages-{{ .Branch }}-{{ checksum "poetry.lock" }}
-  test-3.5:
-    <<: *template
-    docker:
-      - image: pyinv/damm32-ci:3.5
-  test-3.6:
-    <<: *template
-    docker:
-      - image: pyinv/damm32-ci:3.6
   test-3.7:
     <<: *template
     docker:
-      - image: pyinv/damm32-ci:3.7
+      - image: j5api/ci:3.7
+  test-3.8:
+    <<: *template
+    docker:
+      - image: j5api/ci:3.8
