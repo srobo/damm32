@@ -178,6 +178,46 @@ def test_bad_letter_detected() -> None:
         d32.calculate("?@")
 
 
+def test_bad_letter_in_alphabet() -> None:
+    """Test that a bad letter in the alphabet does throw an error."""
+    alphabet = [
+        "AAAAA",
+        "B",
+        "C",
+        "D",
+        "E",
+        "F",
+        "G",
+        "H",
+        "I",
+        "J",
+        "K",
+        "L",
+        "M",
+        "N",
+        "O",
+        "P",
+        "Q",
+        "R",
+        "S",
+        "T",
+        "U",
+        "V",
+        "W",
+        "X",
+        "2",
+        "3",
+        "4",
+        "5",
+        "6",
+        "7",
+        "?",
+        "@",
+    ]
+    with pytest.raises(BadCharacterException):
+        Damm32(alphabet)
+
+
 def test_to_word() -> None:
     """Test that the _to_word function works."""
     d32 = Damm32()

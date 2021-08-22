@@ -18,6 +18,7 @@ class Damm32:
     _DEFAULT_ALPHABET = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', '2', '3', '4', '5', '6', '7']  # noqa: E501
 
     def __init__(self, alphabet: List[str] = _DEFAULT_ALPHABET) -> None:
+        self._alphabet = alphabet
         if len(alphabet) != Damm32.BASE_SIZE:
             raise BadAlphabetException(
                 f"Expected alphabet of length {Damm32.BASE_SIZE}, got {len(alphabet)}",
@@ -29,7 +30,10 @@ class Damm32:
                 f"alphabet, got {len(set(alphabet))}",
             )
 
-        self._alphabet = alphabet
+        if not all(len(i) == 1 for i in alphabet):
+            raise BadCharacterException(
+                "Some characters in the provided alphabet were too long.",
+            )
 
     def _calculate_from_digits(self, digits: List[int]) -> int:
         """Calculate the check digit from a DigitList."""
