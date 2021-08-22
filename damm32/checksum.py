@@ -12,18 +12,27 @@ class BadCharacterException(ValueError):
 
 
 class BadAlphabetException(Exception):
-    """The alphabet is of the wrong length or has duplicate characters."""
+    """There was a problem with the provided alphabet."""
 
 
 class Damm32:
     """Implementation of the Damm algorithm."""
 
     BASE_SIZE = 32
-    ALPHABET = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', '2', '3', '4', '5', '6', '7']  # noqa: E501
+    _DEFAULT_ALPHABET = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', '2', '3', '4', '5', '6', '7']  # noqa: E501
 
-    def __init__(self, alphabet: Alphabet = ALPHABET) -> None:
-        if len(set(alphabet)) != Damm32.BASE_SIZE or len(alphabet) != Damm32.BASE_SIZE:
-            raise BadAlphabetException
+    def __init__(self, alphabet: Alphabet = _DEFAULT_ALPHABET) -> None:
+        if len(alphabet) != Damm32.BASE_SIZE:
+            raise BadAlphabetException(
+                f"Expected alphabet of length {Damm32.BASE_SIZE}, got {len(alphabet)}",
+            )
+
+        if len(set(alphabet)) != Damm32.BASE_SIZE:
+            raise BadAlphabetException(
+                f"Expected {Damm32.BASE_SIZE} unique characters in "
+                f"alphabet, got {len(set(alphabet))}",
+            )
+
         self._alphabet = alphabet
 
     def _calculate_from_digits(self, digits: DigitList) -> Digit:
