@@ -35,7 +35,7 @@ def run() -> None:
 
     VERSION = find_version("damm32", "__init__.py")
 
-    if tag != f"refs/tags/{VERSION}":
+    if tag != f"refs/tags/v{VERSION}":
         info = "Git tag: {0} != damm32 version: {1}".format(tag, VERSION)
         sys.exit(info)
 
