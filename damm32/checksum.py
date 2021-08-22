@@ -19,18 +19,24 @@ class Damm32:
 
     def __init__(self, alphabet: List[str] = _DEFAULT_ALPHABET) -> None:
         self._alphabet = alphabet
-        if len(alphabet) != Damm32.BASE_SIZE:
+        self._check_alphabet_valid()
+
+    def _check_alphabet_valid(self) -> None:
+        """Check that the alphabet is valid."""
+        length = len(self._alphabet)
+        if length != Damm32.BASE_SIZE:
             raise BadAlphabetException(
-                f"Expected alphabet of length {Damm32.BASE_SIZE}, got {len(alphabet)}",
+                f"Expected alphabet of length {Damm32.BASE_SIZE}, got {length}",
             )
 
-        if len(set(alphabet)) != Damm32.BASE_SIZE:
+        length_unique = len(set(self._alphabet))
+        if length_unique != Damm32.BASE_SIZE:
             raise BadAlphabetException(
                 f"Expected {Damm32.BASE_SIZE} unique characters in "
-                f"alphabet, got {len(set(alphabet))}",
+                f"alphabet, got {length_unique }",
             )
 
-        if not all(len(i) == 1 for i in alphabet):
+        if not all(len(i) == 1 for i in self._alphabet):
             raise BadCharacterException(
                 "Some characters in the provided alphabet were too long.",
             )
