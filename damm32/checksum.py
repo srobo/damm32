@@ -24,6 +24,7 @@ class Damm32:
     def __init__(self, alphabet: Alphabet = ALPHABET) -> None:
         if len(set(alphabet)) != Damm32.BASE_SIZE or len(alphabet) != Damm32.BASE_SIZE:
             raise BadAlphabetException
+        self._alphabet = alphabet
 
     def _calculate_from_digits(self, digits: DigitList) -> Digit:
         """Calculate the check digit from a DigitList."""
@@ -42,20 +43,20 @@ class Damm32:
             raise TypeError
         word = word.upper()
         try:
-            return [Damm32.ALPHABET.index(letter) for letter in word]
+            return [self._alphabet.index(letter) for letter in word]
         except ValueError:
             raise BadCharacterException from None
 
     def _to_word(self, digits: DigitList) -> str:
         """Convert a DigitList to a str."""
-        return "".join([Damm32.ALPHABET[digit] for digit in digits])
+        return "".join([self._alphabet[digit] for digit in digits])
 
     def calculate(self, word: str) -> str:
         """Calculate the check digit for a string."""
         digits = self._to_digits(word)
         checkdigit = self._calculate_from_digits(digits)
-        return Damm32.ALPHABET[checkdigit]
+        return self._alphabet[checkdigit]
 
     def verify(self, word: str) -> bool:
         """Verify that a string contains a valid check digit."""
-        return self.calculate(word) == Damm32.ALPHABET[0]
+        return self.calculate(word) == self._alphabet[0]

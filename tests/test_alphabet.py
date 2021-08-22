@@ -184,3 +184,11 @@ def test_to_word() -> None:
     digit_list = [1, 2, 3, 4, 5, 1, 3, 1, 3, 3, 9, 15, 31]
     assert d32._to_word(digit_list) == "BCDEFBDBDDJP7"
     assert type(d32._to_word(digit_list)) is str
+
+
+def test_to_word_non_standard_alphabet() -> None:
+    """Test that the _to_word function works."""
+    d32 = Damm32(list("BACDEFGHIJKLMNOPQSTUVWXYZ1234567"))
+    digit_list = [1, 2, 3, 4, 5, 1, 3, 1, 3, 3, 9, 15, 31]
+    assert d32._to_word(digit_list) == "ACDEFADADDJP7"
+    assert type(d32._to_word(digit_list)) is str
