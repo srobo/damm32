@@ -2,10 +2,6 @@
 
 from typing import List
 
-Digit = int
-DigitList = List[Digit]
-Alphabet = List[str]
-
 
 class BadCharacterException(ValueError):
     """An invalid character was found in your input."""
@@ -21,7 +17,7 @@ class Damm32:
     BASE_SIZE = 32
     _DEFAULT_ALPHABET = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', '2', '3', '4', '5', '6', '7']  # noqa: E501
 
-    def __init__(self, alphabet: Alphabet = _DEFAULT_ALPHABET) -> None:
+    def __init__(self, alphabet: List[str] = _DEFAULT_ALPHABET) -> None:
         if len(alphabet) != Damm32.BASE_SIZE:
             raise BadAlphabetException(
                 f"Expected alphabet of length {Damm32.BASE_SIZE}, got {len(alphabet)}",
@@ -35,7 +31,7 @@ class Damm32:
 
         self._alphabet = alphabet
 
-    def _calculate_from_digits(self, digits: DigitList) -> Digit:
+    def _calculate_from_digits(self, digits: List[int]) -> int:
         """Calculate the check digit from a DigitList."""
         mask = 37
         checkdigit = 0
@@ -46,7 +42,7 @@ class Damm32:
                 checkdigit ^= mask
         return checkdigit
 
-    def _to_digits(self, word: str) -> DigitList:
+    def _to_digits(self, word: str) -> List[int]:
         """Convert a string to a DigitList."""
         if type(word) is not str:
             raise TypeError
@@ -56,7 +52,7 @@ class Damm32:
         except ValueError:
             raise BadCharacterException from None
 
-    def _to_word(self, digits: DigitList) -> str:
+    def _to_word(self, digits: List[int]) -> str:
         """Convert a DigitList to a str."""
         return "".join([self._alphabet[digit] for digit in digits])
 
