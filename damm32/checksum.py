@@ -21,8 +21,35 @@ class Damm32:
         self._alphabet = alphabet
         self._check_alphabet_valid()
 
+    def calculate(self, word: str) -> str:
+        """
+        Calculate the Damm check digit for a string.
+
+        The string must consist only of characters in the alphabet.
+
+        :param word: String to calculatee Damm check digit for.
+        :returns: Single check digit character.
+        """
+        digits = self._to_digits(word)
+        checkdigit = self._calculate_from_digits(digits)
+        return self._alphabet[checkdigit]
+
+    def verify(self, word: str) -> bool:
+        """
+        Verify that a string contains a valid Damm check digit.
+
+        :param word: Word to check validity.
+        :returns: Result of the check.
+        """
+        return self.calculate(word) == self._alphabet[0]
+
     def _check_alphabet_valid(self) -> None:
-        """Check that the alphabet is valid."""
+        """
+        Check that the alphabet is valid.
+
+        :raises BadAlphabetException: The alphabet was invalid.
+        :raises BadCharacterException: At least one character in the alphabet is invalid.
+        """
         length = len(self._alphabet)
         if length != Damm32.BASE_SIZE:
             raise BadAlphabetException(
@@ -42,7 +69,12 @@ class Damm32:
             )
 
     def _calculate_from_digits(self, digits: List[int]) -> int:
-        """Calculate the check digit from a DigitList."""
+        """
+        Calculate the Damm check digit from a list of integer digits.
+
+        :param digits: digits to calculate check digit from.
+        :returns: The Damm check digit.
+        """
         mask = 37
         checkdigit = 0
         for digit in digits:
@@ -53,25 +85,27 @@ class Damm32:
         return checkdigit
 
     def _to_digits(self, word: str) -> List[int]:
-        """Convert a string to a DigitList."""
+        """
+        Convert a string to a list of integer digits.
+
+        :param word: Word to convert.
+        :returns: List of integer digits.
+        :raises TypeError: Input is not a string.
+        :raises BadCharacterException: Word contains an invalid character.
+        """
         if type(word) is not str:
-            raise TypeError
+            raise TypeError("Input is not a string.")
         word = word.upper()
         try:
             return [self._alphabet.index(letter) for letter in word]
         except ValueError:
-            raise BadCharacterException from None
+            raise BadCharacterException(f"Invalid character in {word}") from None
 
     def _to_word(self, digits: List[int]) -> str:
-        """Convert a DigitList to a str."""
+        """
+        Convert a list of digits to a string.
+
+        :param digits: digits to convert.
+        :returns: constructed string.
+        """
         return "".join([self._alphabet[digit] for digit in digits])
-
-    def calculate(self, word: str) -> str:
-        """Calculate the check digit for a string."""
-        digits = self._to_digits(word)
-        checkdigit = self._calculate_from_digits(digits)
-        return self._alphabet[checkdigit]
-
-    def verify(self, word: str) -> bool:
-        """Verify that a string contains a valid check digit."""
-        return self.calculate(word) == self._alphabet[0]

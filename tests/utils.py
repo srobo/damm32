@@ -40,5 +40,11 @@ ALPHABET = [
 
 
 def random_string(length: int, alphabet: List[str] = ALPHABET) -> str:
-    """Get a string of random length."""
+    """
+    Get a string of random length.
+
+    :param length: Length of string.
+    :param alphabet: alphabet to use in string.
+    :returns: Random string
+    """
     return "".join([random.choice(alphabet) for _ in range(length)])
