@@ -15,6 +15,7 @@ class Damm32:
     """Implementation of the Damm algorithm."""
 
     BASE_SIZE = 32
+    BIT_MASK = 37  # Bitmask from Table of Low-Weight Binary Irreducible Polynomials
     _DEFAULT_ALPHABET = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', '2', '3', '4', '5', '6', '7']  # noqa: E501
 
     def __init__(self, alphabet: List[str] = _DEFAULT_ALPHABET) -> None:
@@ -51,15 +52,15 @@ class Damm32:
         :raises BadCharacterException: At least one character in the alphabet is invalid.
         """
         length = len(self._alphabet)
-        if length != Damm32.BASE_SIZE:
+        if length != self.BASE_SIZE:
             raise BadAlphabetException(
-                f"Expected alphabet of length {Damm32.BASE_SIZE}, got {length}",
+                f"Expected alphabet of length {self.BASE_SIZE}, got {length}",
             )
 
         length_unique = len(set(self._alphabet))
-        if length_unique != Damm32.BASE_SIZE:
+        if length_unique != self.BASE_SIZE:
             raise BadAlphabetException(
-                f"Expected {Damm32.BASE_SIZE} unique characters in "
+                f"Expected {self.BASE_SIZE} unique characters in "
                 f"alphabet, got {length_unique }",
             )
 
@@ -75,13 +76,12 @@ class Damm32:
         :param digits: digits to calculate check digit from.
         :returns: The Damm check digit.
         """
-        mask = 37
         checkdigit = 0
         for digit in digits:
             checkdigit ^= digit
             checkdigit <<= 1
-            if checkdigit >= Damm32.BASE_SIZE:
-                checkdigit ^= mask
+            if checkdigit >= self.BASE_SIZE:
+                checkdigit ^= self.BIT_MASK
         return checkdigit
 
     def _to_digits(self, word: str) -> List[int]:
